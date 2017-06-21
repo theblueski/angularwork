@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/main.min.css">
+</head>
+<body ng-controller="myController">
+	    <div class="container-fluid">
+	        <div class="row">
+	        <div class="col-xs-2 col-xs-offset-5">
+	            <h3>{{data.name}}</h3>
+	        </div>
+	        </div>
+	        <div class="row" style="margin-bottom:10px">
+	            <div class="col-xs-11" >{{data.introduce}}</div>
+	            <div class="col-xs-1" style="cursor:pointer" ng-click="bToQuestions()">
+	                <span id="prelook">预览</span>
+	            </div>
+	        </div>
+	       
+	    <hr/>
+	    <form style="margin-top:10px" ng-submit="ok()" ng-show="!isAns">
+	        <div class="form-group">
+	            <label for="q1">Q1: {{data.questions[0].question}}</label>
+	            <input type="text" class="form-control" id="q1" ng-model="answers[0]">
+	        </div>
+	        <div class="form-group">
+	            <label>Q2: {{data.questions[1].question}}</label>
+	            <label ng-repeat="data in data.questions[1].answers" class="form-control" style="border:none;box-shadow:none">
+	                <input type="radio" ng-value="data.answer" ng-model="answers[1]"/>  {{data.answer}}
+	            </label>
+	        </div>
+	        <div class="form-group">
+	            <label>Q3: {{data.questions[2].question}}</label>
+	            <label ng-repeat="data in data.questions[2].answers" class="form-control" style="border:none;box-shadow:none">
+	                <input type="checkbox" ng-model="answers[2][$index]"/>  {{data.answer}}
+	            </label>
+	        </div>
+	        <div class="form-group">
+	            <label for="q4">Q4: {{data.questions[3].question}}</label>
+	            <input type="text" class="form-control" id="q4" ng-model="answers[3]">
+	        </div>
+	         <div class="form-group">
+	            <label>Q5: {{data.questions[3].answers[1].question}}</label>
+	            <label ng-repeat="data in data.questions[3].answers[1].answers" class="form-control" style="border:none;box-shadow:none">
+	                <input type="checkbox" ng-model="answers[4][$index]"/>  {{data.answer}}
+	            </label>
+	        </div>
+	        <button type="submit" class="btn btn-default">Submit</button>
+	    </form>
+	    
+        <div ng-show="isAns">
+            <div class="panel panel-default" ng-repeat="results in showans track by $index">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Q{{$index+1}}: {{data.questions[$index].question ? data.questions[$index].question : data.questions[3].answers[1].question}}</h3>
+                </div>
+                <div class="panel-body">
+                    ANS: {{results}}
+                </div>
+            </div>
+	    </div>
+	    <script src="js/main.min.js"></script>
+	    <script src="js/data.js"></script>
+    </div>
+</body>
+</html>
